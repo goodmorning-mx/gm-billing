@@ -11,6 +11,7 @@ for local development/tests; production adapters implement `add_usage` and
 included. A future wallet can be added as another ledger entry type without
 changing usage metering.
 
-Install backend with `pip install gm-billing`; install frontend from
-`frontend/` as `@goodmorning/gm-billing`. `create_app()` exposes `/health`,
-`POST /usage`, and `GET /usage/summary`.
+Install the backend with `pip install gm-billing`. The root repository package
+builds `@goodmorning/gm-billing` from the locked frontend toolchain during its
+prepare step. `create_app()` exposes `/health`, `POST /usage`, and
+`GET /usage/summary`.

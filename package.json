@@ -1,11 +1,32 @@
 {
   "name": "@goodmorning/gm-billing",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Reusable GoodMorning billing React components",
   "type": "module",
   "main": "frontend/dist/index.js",
   "types": "frontend/dist/index.d.ts",
-  "files": ["frontend/dist"],
-  "scripts": {"build": "npm --prefix frontend install && npm --prefix frontend run build", "prepare": "npm run build"},
-  "peerDependencies": {"react": ">=18"}
+  "files": [
+    "frontend/dist"
+  ],
+  "scripts": {
+    "build": "npm --prefix frontend ci && npm --prefix frontend run build",
+    "prepare": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goodmorning-mx/gm-billing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goodmorning-mx/gm-billing/issues"
+  },
+  "homepage": "https://github.com/goodmorning-mx/gm-billing#readme"
 }
