@@ -14,10 +14,21 @@ jobs:
       - run: python -m unittest discover -s tests -q
   frontend:
     runs-on: ubuntu-latest
-    defaults: {run: {working-directory: frontend}}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '20'}
-      - run: npm install
-      - run: npm run build
+      - run: npm ci --prefix frontend
+      - run: npm --prefix frontend run build
+      - name: Verify packed frontend module
+        shell: bash
+        run: |
+          set -euo pipefail
+          package_dir="${RUNNER_TEMP}/gm-billing-package"
+          consumer_dir="${RUNNER_TEMP}/gm-billing-consumer"
+          mkdir -p "${package_dir}" "${consumer_dir}"
+          npm pack --ignore-scripts --pack-destination "${package_dir}"
+          npm init -y --prefix "${consumer_dir}" >/dev/null
+          npm install --prefix "${consumer_dir}" react@^18 "${package_dir}"/*.tgz
+          cd "${consumer_dir}"
+          node --input-type=module -e "import { UsageSummaryCard, AdminUsageTable } from '@goodmorning/gm-billing'; if (typeof UsageSummaryCard !== 'function' || typeof AdminUsageTable !== 'function') process.exit(1)"
